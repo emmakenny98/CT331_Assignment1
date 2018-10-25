@@ -59,3 +59,47 @@ void deleteAfter(listElement* after){
   free(delete->data);
   free(delete);
 }
+
+//Return the number of elements in a linked list
+int length(listElement* list){
+	listElement* cur = list;
+	int size = 0;
+
+	while(cur != NULL){
+		size++;
+		cur = cur->next;
+	}
+	
+	return size;
+}
+
+//Push a new element onto the head of a list
+//Update the list reference using side effects
+void push(listElement** list, char* data, size_t size){
+	listElement* newEl = createEl(data, size);
+	newEl->next = *list;
+	*list = newEl;
+}
+
+//Pop an elemet from the head of a list.
+//Update the list reference using side effects
+void pop(listElement** list){
+	listElement* el = *list;
+	*list = el->next;
+}
+
+//Enqueue a new element onto the head of the list
+void enqueue(listElement** list, char*data, size_t size){
+	listElement* newEl = createEl(data,size);
+	newEl->next = *list;
+	*list = newEl;
+}
+
+//Dequeue an element from the tail of the list
+void dequeue(listElement* list){
+	listElement* head = list;
+	while(head->next->next != NULL){
+		head = head->next;
+	}
+	deleteAfter(head);
+}
